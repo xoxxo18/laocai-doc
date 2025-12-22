@@ -1,5 +1,8 @@
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+ 
+/* Optional: import Nextra theme styles */
+@import 'nextra-theme-docs/style.css'; 
 
-
+/* or nextra-theme-blog/style.css */
