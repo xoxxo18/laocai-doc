@@ -15,14 +15,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. 专门配置 Bun 环境
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -33,20 +31,35 @@ jobs:
         with:
           static_site_generator: next
 
-      # 3. 使用 Bun 安装依赖
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      # 4. 使用 Bun 构建
+      # 避免旧 out 干扰（CI 一般不会有，但加了更明确）
+      - name: Clean previous output
+        run: rm -rf out
+
       - name: Build with Next.js
         run: bun run build
+
+      # 你要的检查步骤：定位 out / .next 到底生成了啥
+      - name: Inspect build output
+        run: |
+          echo "=== repo root ==="
+          ls -la
+          echo "=== out (if exists) ==="
+          ls -la out || true
+          echo "=== .next (if exists) ==="
+          ls -la .next || true
+
+      # 可选：如果 out/index.html 没有就直接失败，避免上传空 artifact
+      - name: Assert out/index.html exists
+        run: test -f out/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
-  # Deployment job (这部分不需要变)
   deploy:
     environment:
       name: github-pages
