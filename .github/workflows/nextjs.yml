@@ -33,17 +33,6 @@ jobs:
         with:
           static_site_generator: next
 
-      # 2. 缓存 Next.js 的构建缓存 (加速二次构建)
-      # 注意：这里我们将 key 中的检测文件改为了 bun.lockb
-      - name: Restore cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
-
       # 3. 使用 Bun 安装依赖
       - name: Install dependencies
         run: bun install --frozen-lockfile
