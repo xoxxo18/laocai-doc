@@ -26,33 +26,23 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      # 避免旧 out 干扰（CI 一般不会有，但加了更明确）
-      - name: Clean previous output
-        run: rm -rf out
+      - name: Clean output
+        run: rm -rf out .next
 
-      - name: Build with Next.js
+      - name: Build (export)
         run: bun run build
 
-      # 你要的检查步骤：定位 out / .next 到底生成了啥
-      - name: Inspect build output
+      - name: Inspect output
         run: |
-          echo "=== repo root ==="
-          ls -la
-          echo "=== out (if exists) ==="
+          echo "=== out html files ==="
+          find out -maxdepth 3 -type f -name "*.html" || true
+          echo "=== out root ==="
           ls -la out || true
-          echo "=== .next (if exists) ==="
-          ls -la .next || true
 
-      # 可选：如果 out/index.html 没有就直接失败，避免上传空 artifact
-      - name: Assert out/index.html exists
+      - name: Assert homepage exists
         run: test -f out/index.html
 
       - name: Upload artifact
@@ -70,3 +60,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
