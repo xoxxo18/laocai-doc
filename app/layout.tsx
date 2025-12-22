@@ -4,6 +4,7 @@ import { getPageMap } from "nextra/page-map";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "nextra-theme-docs/style.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   // Define your metadata here
