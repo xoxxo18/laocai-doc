@@ -1,3 +1,4 @@
+import { NextConfig } from 'next';
 import nextra from 'nextra';
 
 
@@ -7,7 +8,7 @@ const withNextra = nextra({
 });
 
 // 2. 配置标准的 Next.js
-const nextConfig = {
+const nextConfig: NextConfig = {
   // 结合你之前的 GitHub Pages 需求，建议加上以下两行：
   output: 'export',
   images: {
