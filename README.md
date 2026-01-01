@@ -1,34 +1,49 @@
-## Git 提交消息（根据 `git diff --stat`）
+# Starlight Starter Kit: Basics
 
-### Subject（建议）
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-`feat(docs): 集成 Nextra 文档站点并完善静态导出构建配置`
-
-### Body（要点）
-
-- **Nextra/Next 配置**：引入 Nextra 包装 Next 配置，补齐 Turbopack 下的 MDX 组件 alias（`next.config.ts`）
-- **站点布局**：切换到 Nextra Docs 的 `Layout/Navbar/Footer`，更新导航 Logo（小猫 + “牢财文档”）与 GitHub 图标（`app/layout.tsx`）
-- **样式**：在全局样式中引入 `nextra-theme-docs` 样式（`app/globals.css`）
-- **构建流程**：`dev` 使用 `--turbopack`；新增 `postbuild` 生成 pagefind 索引；忽略 `_pagefind/`（`package.json`, `.gitignore`）
-- **清理**：移除默认首页与默认 SVG 静态资源（`app/page.tsx`, `public/*.svg`）
-- **依赖锁**：同步更新 `bun.lock`
-
-### Diff Stat
-
-```text
-.gitignore        |   3 +
-app/globals.css   |   5 +-
-app/layout.tsx    |  82 +++++-
-app/page.tsx      |   7 -
-bun.lock          | 846 +++++++++++++++++++++++++++++++++++++++++++++++++++++-
-next.config.ts    |  31 +-
-package.json      |   9 +-
-public/file.svg   |   1 -
-public/globe.svg  |   1 -
-public/next.svg   |   1 -
-public/vercel.svg |   1 -
-public/window.svg |   1 -
-12 files changed, 959 insertions(+), 29 deletions(-)
+```
+bun create astro@latest -- --template starlight
 ```
 
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
+## 🚀 Project Structure
+
+Inside of your Astro + Starlight project, you'll see the following folders and files:
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── content/
+│   │   └── docs/
+│   └── content.config.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
+```
+
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+
+Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+
+Static assets, like favicons, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Installs dependencies                            |
+| `bun dev`             | Starts local dev server at `localhost:4321`      |
+| `bun build`           | Build your production site to `./dist/`          |
+| `bun preview`         | Preview your build locally, before deploying     |
+| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `bun astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
